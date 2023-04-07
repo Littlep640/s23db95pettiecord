@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  
+  
+  
+  div(class="container-fluid")
+   div(class="row")
+    - let results = [{breed: "breed1", size: "size1", yrsOfLifeExpectancy: "yrslife_expect1"}, {breed: "breed2", size: "size2", yrsOfLifeExpectancy: "yrslife_expect2"}, {breed: "breed3", size: "size3", yrsOfLifeExpectancy: "yrslife_expect3"}]
+      each item in results 
+       div(class="col-sm-2") #{item.breed} #{item.size} #{item.yrsOfLifeExpectancy}

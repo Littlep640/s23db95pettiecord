@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h1= title
+
+  p Rows: #{query.rows} and Columns: #{query.cols}
+  - rows = Number(query.rows)
+  - col = Number(query.cols)
+
+  if Number.isInteger(rows) == false
+    p All you had to do was give me an actual number for rows and you didn't. 
+  else if rows>10
+    p The row is too big.  
+  
+  if Number.isInteger(col) == false 
+    p All you had to do was give me an actual number for rows and you didn't. 
+  else if col>10
+    p The column is too big. 
+  
+  else
+    table#outer
+      - for(i = 0; i<rows; i++){
+          tr#middle
+            - for(j = 0; j<col; j++){
+                td=[2]                
+            - }
+      - }
+        

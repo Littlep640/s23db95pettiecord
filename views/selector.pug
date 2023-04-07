@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+
+  - var image_names = ["pugPhoto", "bloodhoundPhoto", "mastiffPhoto", "chihuahuaPhoto", "bulldogPhoto"]
+  - for(i = 0; i<4; i++){
+      - var randomInt = Math.floor(Math.random()*5)
+      img(alt="Picture of a dog" height=300 width=300 src='images/#{image_names[randomInt]}')
+  - }

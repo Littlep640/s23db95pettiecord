@@ -9,4 +9,5 @@ block content
    div(class="row")
     - let results = [{breed: "breed1", size: "size1", yrsOfLifeExpectancy: 1}, {breed: "breed2", size: "size2", yrsOfLifeExpectancy: 2}, {breed: "breed3", size: "size3", yrsOfLifeExpectancy: 3}]
       each item in results 
+      - let results = item 
        div(class="col-sm-2") #{item.breed} #{item.size} #{item.yrsOfLifeExpectancy}

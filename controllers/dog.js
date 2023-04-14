@@ -10,8 +10,20 @@ exports.Dog_detail = function(req, res) {
     res.send('NOT IMPLEMENTED: Dog detail: ' + req.params.id);
     };
     // Handle Costume create on POST.
-exports.Dog_create_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Dog create POST');
+exports.Dog_create_post = async function(req, res) {
+    console.log(req.body)
+    let document = new Dog();
+    document.breed = req.body.breed;
+    document.size = req.body.size;
+    document.yrsOfLifeExpectancy = req.body.yrsOfLifeExpectancy;
+    try{
+        let result = await document.save()
+        res.send(result)
+    }
+    catch(err){
+        res.status(500);
+        res.send(`{'error':${err}}`);
+    }
     };
     // Handle Costume delete form on DELETE.
 exports.Dog_delete = function(req, res) {

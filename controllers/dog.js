@@ -1,5 +1,19 @@
 var Dog = require('../models/dog');
 
+// List of all Costumes
+exports.dog_list = async function(req, res) {
+    try{
+        theDogs = await dog.find();
+        res.send(theDogs);
+    }
+    catch(err){
+        res.status(500);
+        res.send(`{"error": ${err}}`);
+    }
+    };
+
+
+
 //List of all the Dogs
 exports.dog_list = function(req, res) {
     res.send('NOT IMPLEMENTED: Dog list');
@@ -20,4 +34,9 @@ exports.dog_list = function(req, res) {
     exports.dog_update_put = function(req, res) {
     res.send('NOT IMPLEMENTED: Dog update PUT' + req.params.id);
     };
+
+
+
+
+    
     

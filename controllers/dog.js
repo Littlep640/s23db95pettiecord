@@ -6,8 +6,16 @@ exports.Dog_list = function(req, res) {
     res.send('NOT IMPLEMENTED: Dog list');
     };
     // for a specific Costume.
-exports.Dog_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: Dog detail: ' + req.params.id);
+exports.Dog_detail = async function(req, res) {
+    console.log("detail" + req.params.id)
+    try{
+        result = await Dog.findById(req.params.id)
+        res.send(result)
+    }
+    catch(error){
+        res.status(500)
+        res.send(`{"error:" document for id ${req.params.id} not found}`);
+    }
     };
     // Handle Costume create on POST.
 exports.Dog_create_post = async function(req, res) {
@@ -30,8 +38,25 @@ exports.Dog_delete = function(req, res) {
     res.send('NOT IMPLEMENTED: Dog delete DELETE ' + req.params.id);
     };
     // Handle Costume update form on PUT.
-exports.Dog_update_put = function(req, res) {
-    res.send('NOT IMPLEMENTED: Dog update PUT' + req.params.id);
+exports.Dog_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`)
+    try{
+        let toUpdate = await Dog.findById(req.params.id)
+        //Do updates of properties
+        if(req.body.breed)
+            toUpdate.breed = req.body.breed;
+        if(req.body.size)
+            toUpdate.size = req.body.size;
+        if(req.body.yrsOfLifeExpectancy)
+            toUpdate.yrsOfLifeExpectancy = req.body.yrsOfLifeExpectancy;
+        let result = await toUpdate.save()
+        console.log("Success" + result)
+        res.send(result)
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id} failed}`);
+    }
     };
 
 // List of all Costumes

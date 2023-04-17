@@ -1,0 +1,23 @@
+extends layout
+
+block content 
+    h1= title 
+
+    - let dogid = toShow._id
+    - let dog_breed = toShow.breed
+    - let dogyrsOfLifeExpectancy = toShow.yrsOfLifeExpectancy
+    - let dogsize = toShow.size
+
+    div
+        div.row
+            div(class='dogAttr mr-3') Dog Id is:
+            div #{dogid}
+        div.row
+            div(class='dogAttr mr-3') Dog Breed is:
+            div #{dog_breed}
+        div.row
+            div(class='dogAttr mr-3') Dog Size is:
+            div #{dogsize}
+        div.row
+            div(class='dogAttr mr-3') Dog life expectancy is:
+            div #{dogyrsOfLifeExpectancy}

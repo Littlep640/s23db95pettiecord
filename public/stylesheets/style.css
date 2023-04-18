@@ -11,3 +11,24 @@ a {
   background-color: orangered;
   width: 120px;
 }
+
+.hPretty{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color: rgb(173, 173, 222);
+  width: fit-content;
+}
+
+.dogUpdatePretty{
+  color: violet;
+  background-color: rgba(137, 207, 199, 0.262);
+  width: fit-content;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: large;
+}
+
+.dogUpdateForm{
+  background-color: bisque;
+  width: fit-content;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: large;
+}

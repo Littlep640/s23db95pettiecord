@@ -1,26 +1,25 @@
 extends layout
 
 block content
-    h1= title
+    h1(class="hPretty")= title
 
     - let dogid = toShow._id
     - let dog_breed = toShow.breed
     - let dogyrsOfLifeExpectancy = toShow.yrsOfLifeExpectancy
     - let dogsize = toShow.size
-    
+
     div.row(class="mb-2")
-        div.mr-1 ID is 
-        div #{dogid}
+        div.mr-1(class="dogUpdatePretty") ID is: #{dogid}
         - let actionid = "/resource/dogs/" + dogid
         form(id='DogForm', action=actionid, method="PUT")
             div.form-group
-                label.dogAttr(for="breed") Dog Breed
+                label.dogUpdateForm(for="breed") Dog Breed
                 input#breed(type="text", name="breed", value="dog_breed")
             div.form-group
-                label.dogAttr(for="size") Dog Size
+                label.dogUpdateForm(for="size") Dog Size
                 input#size(type="text", name="size", value="dogsize")
             div.form-group
-                label.dogAttr(for="yrsOfLifeExpectancy") Dog Years of Life Expectancy
+                label.dogUpdateForm(for="yrsOfLifeExpectancy") Dog Years of Life Expectancy
                 input#yrsOfLifeExpectancy(type="text", name="yrsOfLifeExpectancy", value="dogyrsOfLifeExpectancy")
             input(type="submit")
 
@@ -37,4 +36,5 @@ block content
                 alert("Save succeded")                
             }).catch((error) => { 
                 alert("Save failed " + error ) });
-        });    
+        });
+    

@@ -1,0 +1,47 @@
+extends layout 
+
+block content 
+    h1= title 
+    
+    if(toShow == null)
+        h2 No instance to delete
+    else
+        - let dogid = toShow._id
+        - let dog_breed = toShow.breed
+        - let dogyrsOfLifeExpectancy = toShow.yrsOfLifeExpectancy
+        - let dogsize = toShow.size
+        script let actionid = "#{actionid}"
+        div
+            div.row
+                div(class= "dogAttr mr-3") Dog ID is: 
+                div #{dogid}
+            div.row
+                div(class= "dogAttr mr-3") Dog Breed is: 
+                div #{dog_breed}
+            div.row
+                div(class= "dogAttr mr-3") Dog Size is: 
+                div #{dogsize}
+            div.row
+                div(class= "dogAttr mr-3") Dog Life Expectancy is: 
+                div #{dogyrsOfLifeExpectancy}
+        button(class="btn btn-danger m-2", onclick="deleteOnid()") Delete
+        button(class="btn btn-secondary m-2", onclick="cancel()") Cancel
+    
+    script.
+        function cancel(){
+            window.location.href='/resource/dogs'
+        }
+    script.
+        function deleteOnid(){
+            console.log('Starting delete')
+            fetch(actionid, {
+                method: 'DELETE'
+            }).then((resp) => {
+                return resp.text();
+            }).then((body) => {
+                alert("Delete succeded")
+                window.location.href='/resource/dogs'
+            }).catch((error) => {
+                alert("Delete failed " + error)
+            });
+        }

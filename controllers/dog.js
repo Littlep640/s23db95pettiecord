@@ -5,7 +5,7 @@ var Dog = require('../models/dog');
 exports.Dog_list = function(req, res) {
     res.send('NOT IMPLEMENTED: Dog list');
     };
-    // for a specific Costume.
+    // for a specific Dog.
 exports.Dog_detail = async function(req, res) {
     console.log("detail" + req.params.id)
     try{
@@ -17,7 +17,7 @@ exports.Dog_detail = async function(req, res) {
         res.send(`{"error:" document for id ${req.params.id} not found}`);
     }
     };
-    // Handle Costume create on POST.
+    // Handle Dog create on POST.
 exports.Dog_create_post = async function(req, res) {
     console.log(req.body)
     let document = new Dog();

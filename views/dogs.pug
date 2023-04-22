@@ -2,12 +2,20 @@ extends layout
 
 block content
   h1= title
+    
   
   
-  
+ 
   div(class="container-fluid")
-   div(class="row")
-    - let results = [{breed: "breed1", size: "size1", yrsOfLifeExpectancy: 1}, {breed: "breed2", size: "size2", yrsOfLifeExpectancy: 2}, {breed: "breed3", size: "size3", yrsOfLifeExpectancy: 3}]
-      each item in results 
-      - let results = item 
-       div(class="col-sm-2") #{item.breed} #{item.size} #{item.yrsOfLifeExpectancy}
+    div(class="row m-1")
+      - let results = [{breed: "breed1", size: "size1", yrsOfLifeExpectancy: 1}, {breed: "breed2", size: "size2", yrsOfLifeExpectancy: 2}, {breed: "breed3", size: "size3", yrsOfLifeExpectancy: 3}]
+      - let items = results 
+      each item in items 
+        - let destination = `dispatch(\"/dogs/update?id=${item._id}\")`
+        div(class="row-sm-2", class="m-1") Breed #{item.breed}(#{item.size}) has life expectancy of #{item.yrsOfLifeExpectancy}
+          button.btn(class="btn-primary ml-1", onclick=destination) Update 
+
+    script.
+      function dispatch(path){
+        window.location.href = path
+      }

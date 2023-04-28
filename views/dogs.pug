@@ -2,18 +2,25 @@ extends layout
 
 block content
   h1= title
-    
   
-  
- 
+  - let createDest = `dispatch(\"/dogs/create")`
+  button.btn(class='btn-primary' onclick=createDest) Create Page
+
+
+
   div(class="container-fluid")
     div(class="row m-1")
       - let results = [{breed: "breed1", size: "size1", yrsOfLifeExpectancy: 1}, {breed: "breed2", size: "size2", yrsOfLifeExpectancy: 2}, {breed: "breed3", size: "size3", yrsOfLifeExpectancy: 3}]
       - let items = results 
       each item in items 
         - let destination = `dispatch(\"/dogs/update?id=${item._id}\")`
+        - let destinationDelete = `dispatch(\"/dogs/delete?id=${item._id}\")`
+        - let destinationDetail = `dispatch(\"/dogs/detail?id=${item._id}\")`
+
         div(class="row-sm-2", class="m-1") Breed #{item.breed}(#{item.size}) has life expectancy of #{item.yrsOfLifeExpectancy}
           button.btn(class="btn-primary ml-1", onclick=destination) Update 
+          button.btn(class="btn-primary ml-1", onclick=destinationDelete) Delete 
+          button.btn(class="btn-primary ml-1", onclick=destinationDetail) Detail
 
     script.
       function dispatch(path){

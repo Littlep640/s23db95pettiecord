@@ -3,21 +3,13 @@ extends layout
 block content
   h1= title
 
-  button(type="button", class="btn btn-secondary" onclick ="doReduce()") Press Me
-
-  div(id="reduce") Reduce the Value 
-
-  p Welcome to the repo for Assignment 10 and wowee look at that it's using: #{title}
-
-
-  script.
-    var count = 20
-    var change = -1
-    function doReduce() {
-      count = count + change
-      change = change - 1
-      
-      document.getElementById("reduce").innerHTML = "Count: " + count + " and Change: " + change
-    }
-
-  a(href="/dogs") Click
+  if(!user)
+    a(href='/login') Login 
+    br
+    a(href='/register') Register
+  if(user)
+    p You are currently logged in as #{user.username}
+    a(href='/dogs') Take me to dogs 
+    br
+    a(href='/logout') Logout 
+    

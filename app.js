@@ -5,21 +5,29 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var passport = require('passport');
 var LocalStrategy = require("passport-local").Strategy;
-passport.use(new LocalStrategy)(
+var Account = require('./models/account')
+
+passport.use(new LocalStrategy(
   function(username, password, done) {
-    Account.findOne({username: username}, function(err,user){
-      if(err) {return done(err);}
+    Account.findOne({username: username})
+    .then(function (user){
+      if(err) {return done(err); }
       if(!user) {
-        return done(null, false, {message: 'Incorrect username.'});
+        return done(null, false, { message: 'Incorrect Username.'});
       }
       if(!user.validPassword(password)){
-        return done(null, false, {message: 'Incorrect password.'})
+        return done(null, false, { message: 'Incorrect Username.'});
       }
       return done(null, user);
-    });
-  }
+    })
+      .catch(function(err){
+        return done(err)
+      })
+    })
 )
-
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
 
 require('dotenv').config();
 const connectionString = process.env.MONGO_CON
@@ -53,11 +61,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(require('express-session'))({
+app.use(require('express-session')({
   secret: 'keyboard cat', 
   resave: false,
   saveUnitialized: false
-});
+}));
 app.use(passport.initialize());
 app.use(passport.session())
 
@@ -70,22 +78,6 @@ app.use('/board', boardRouter);
 app.use('/selector', selectorRouter);
 app.use('/resource', resourceRouter)
 
-
-var Account = require('./models/account');
-passport.use(new LocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser())
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const passportLocalMongoose = require("passport-local-mongoose");
-
-const accountSchema = new Schema({
-  username: String,
-  password: String
-});
-
-accountSchema.plugin(passportLocalMongoose);
-module.exports = mongoose.model("Account", accountSchema);
 
 
 // catch 404 and forward to error handler
